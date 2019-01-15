@@ -28,13 +28,21 @@ public class DiagramBuilderJsniWrapper extends JavaScriptObject {
                         };
 
                         var customAttributes = customNodeType.customAttributes;
+                        
+                        var textRandom = "";
+                      	
+						var possible = "0123456789";
+		
+					  	for (var k = 0; k < 4; k++){
+					    	textRandom += possible.charAt(Math.floor(Math.random() * possible.length));
+						}
 
                         if (typeof customAttributes != 'undefined') {
                             for (var j = 0; j < customAttributes.length; j++) {
                                 var customAttr = customAttributes[j];
                                 attrs[customAttr.name.toLowerCase()] = {
                                     validator: Y.Lang.isString,
-                                    value: customAttr.defaultValue
+                                    value: customNodeType.type + "_" + textRandom
                                 };
                             }
                             Y["DiagramNodeCustom" + customNodeType.type + "_custom_attrs"] = customAttributes;
@@ -65,7 +73,17 @@ public class DiagramBuilderJsniWrapper extends JavaScriptObject {
 
 
                                     customAttributes = Y["DiagramNodeCustom" + instance.customNodeTypeName + "_custom_attrs"];
-
+                                    
+                                    var textRandom = "";
+                      	
+									var possible = "0123456789";
+					
+								  	for (var k = 0; k < 4; k++){
+								    	textRandom += possible.charAt(Math.floor(Math.random() * possible.length));
+									}
+									
+									instance._attrs.name.value = instance.customNodeTypeName + "_" + textRandom; 
+									
                                     if (typeof customAttributes != 'undefined') {
                                         for (var j = 0; j < customAttributes.length; j++) {
                                             var customAttr = customAttributes[j];
